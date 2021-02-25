@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "dev2": "pm2 start build/dev-server.js",
     "debug": "node build/build-debug.js",
     "build": "node build/build.js"
   },
