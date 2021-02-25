@@ -11,7 +11,7 @@
           v-for="(goodsImage, index) in imgList"
           :key="goodsImage"
           >
-          <img :src="goodsImage" @click="clickShowBigImage(index)"/>
+          <img v-lazy="goodsImage"/>
         </swiper-slide>
       </swiper>
       <div class="swiper-pagination" id="swiperPagination" style="display: none;"></div>
@@ -261,7 +261,7 @@ export default {
       console.log(index)
     }
   }
-}
+} 
 </script>
 
 <style lang="less" scoped>
