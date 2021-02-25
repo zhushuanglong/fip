@@ -1,0 +1,104 @@
+@import './tool';
+// 动画效果
+/* 淡入-从下向上 .4s */
+.a-fadeinB {
+  animation: fadeinB .1s ease-out 0s backwards;
+  .transformStyle();
+}
+.keyframes(all, fadeinB, {
+  0% {
+    transform: translate(0, 30/@rem);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+});
+
+/* 淡入-从下向上 .4s */
+.a-fadeinT {
+  animation: fadeinT .4s ease-out 0s backwards;
+  .transformStyle();
+}
+.keyframes(all, fadeinT, {
+  0% {
+    // opacity: 0.7;
+    transform: translate(0, 200/@rem);
+  }
+  100% {
+    // opacity: 1;
+    transform: translate(0, 0);
+  }
+});
+
+/* 淡入-从上向下 .4s */
+.a-fadeinTX {
+  animation: fadeinTX .4s ease-out 0s backwards;
+  .transformStyle();
+}
+.keyframes(all, fadeinTX, {
+  0% {
+    opacity: 0;
+    transform: translate(0, -20/@rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+});
+
+/* 淡入-从上向下-小幅度 .4s */
+.a-fadeinS {
+  animation: fadeinS .4s ease-out 0s backwards;
+  .transformStyle();
+}
+.keyframes(all, fadeinS, {
+  0% {
+    opacity: .85;
+    transform: translate(0, -5/@rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+});
+
+/* 从右进入 */
+.a-fadeinR {
+  -webkit-animation: fadeinR .4s ease-out backwards;
+  animation: fadeinR .4s ease-out backwards;
+  .transformStyle();
+}
+.keyframes(all, fadeinR, {
+  0% {
+    transform: translateX(100/@rem);
+  }
+  100% {
+    transform: translate(0);
+  }
+});
+
+/* 从右挤入 */
+.a-fadeinMr {
+  -webkit-animation: fadeinMr .4s ease-out forwards;
+  animation: fadeinMr .4s ease-out forwards;
+  .transformStyle();
+}
+.keyframes(all, fadeinMr, {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -150/@rem;
+  }
+});
+
+
+// 旋转
+.rotate180 {
+  transition: all .4s;
+  transform: rotate(180deg);
+}
+.rotate360 {
+  transition: all .4s;
+  transform: rotate(360deg);
+}

@@ -1,0 +1,17 @@
+{
+  "code": 0,
+  "data": {
+    "color": "white",
+    "customerName": "winter young",
+    "deliveryAddress": "浙江 杭州 天湖公寓（阿语从右到左）",
+    "itemTitle": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشو  مطبوعة",
+    "mobile": 512345678,
+    "orderDate": "12/3/2021",
+    "orderId": 789,
+    "picture": "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
+    "quantity": 3,
+    "currentPrice": 19900,
+    "orderStatus": "运送中"
+  },
+  "errorMessage": "string"
+}

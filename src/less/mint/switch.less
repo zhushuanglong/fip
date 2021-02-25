@@ -1,0 +1,67 @@
+@rem: 100rem;
+.mint-switch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+.mint-switch * {
+  pointer-events: none;
+}
+.mint-switch-label {
+  margin-left: 10*1.5/@rem;
+  display: inline-block;
+}
+.mint-switch-label:empty {
+  margin-left: 0;
+}
+.mint-switch-core {
+  display: inline-block;
+  position: relative;
+  width: 78/@rem;
+  height: 47/@rem;
+  border: 1*1.5/@rem solid #d9d9d9;
+  border-radius: 16*1.5/@rem;
+  box-sizing: border-box;
+  background: #d9d9d9;
+}
+.mint-switch-core::after, .mint-switch-core::before {
+  content: " ";
+  top: 0;
+  left: 0;
+  position: absolute;
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s;
+  border-radius: 15*1.5/@rem;
+}
+.mint-switch-core::after {
+  width: 30*1.5/@rem;
+  height: 30*1.5/@rem;
+  background-color: #fff;
+  box-shadow: 0 1*1.5/@rem 3*1.5/@rem rgba(0, 0, 0, .4);
+}
+.mint-switch-core::before {
+  width: 50*1.5/@rem;
+  height: 30*1.5/@rem;
+  background-color: #fdfdfd;
+}
+.mint-switch-input {
+  display: none;
+}
+.mint-switch-input:checked + .mint-switch-core {
+  border-color: #47DC68;
+  background-color: #47DC68;
+}
+.mint-switch-input:checked + .mint-switch-core::before {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+.mint-switch-input:checked + .mint-switch-core::after {
+  -webkit-transform: translateX(20*1.5/@rem);
+          transform: translateX(20*1.5/@rem);
+}

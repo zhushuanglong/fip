@@ -1,0 +1,31 @@
+{
+  "code": 0,
+  "data": {
+    "color": "white",
+    "itemId": 456,
+    "picture": "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
+    "quantity": 3,
+    "title": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشومطبوعة تي شيرت وشورت مجموعة",
+    "currentPrice": "19900",
+    "originalPrice": "20000",
+    "skus": [
+      {
+        "colorName": "white",
+        "colorUrl": "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
+        "picture": "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
+        "currentPrice": "19900",
+        "originalPrice": "20000",
+        "title": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشورت مجموعة مطبوعة تي شيرت وشورت مجموعة"
+      },
+      {
+        "colorName": "yellow",
+        "colorUrl": "https://img.ltwebstatic.com/images3_pi/2020/11/12/1605156427920ed22dbae148b054b6e62b04c8a16b_thumbnail_750x.webp",
+        "picture": "https://img.ltwebstatic.com/images3_pi/2020/11/12/1605156427920ed22dbae148b054b6e62b04c8a16b_thumbnail_750x.webp",
+        "originalPrice": "20000",
+        "currentPrice": "10000",
+        "title": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشورت مجموعة مطبوعة تي شيرت وشورت مجموعة"
+      }
+    ]
+  },
+  "errorMessage": "string"
+}

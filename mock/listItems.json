@@ -1,0 +1,60 @@
+{
+  "code": 0,
+  "data": {
+    "regions": [
+      {
+        "region": "两件折扣区", 
+        "data": [
+            {
+            "currentPrice": 10000,
+            "id": 1,
+            "originalPrice": 19900,
+            "picUrl": "https://img.ltwebstatic.com/images3_pi/2020/12/18/1608259440b98f56fe2c5f016e6c80294968d2602b_thumbnail_405x552.webp",
+            "title": "2 قطعة Bowknot  سويت شيرت وسروال لطفل صغير"
+          },
+          {
+            "currentPrice": 8000,
+            "id": 2,
+            "originalPrice": 19900,
+            "picUrl": "https://img.ltwebstatic.com/images3_pi/2020/10/09/16022132129b17c615041d50792b8fd0d424566972_thumbnail_405x552.webp",
+            "title": "2 قطعة Bowknot  سويت شيرت وسروال لطفل صغير"
+          },
+          {
+            "currentPrice": 19900,
+            "id": 3,
+            "originalPrice": 19900,
+            "picUrl": "https://img.ltwebstatic.com/images3_pi/2021/01/07/1609994960d7d23b53a8079a59b1a207cf0b192285_thumbnail_405x552.webp",
+            "title": "2 قطعة Bowknot  سويت شيرت وسروال لطفل صغير"
+          }
+        ]
+      },
+      {
+        "region": "四件折扣区", 
+        "data": [
+            {
+            "currentPrice": 10000,
+            "id": 1,
+            "originalPrice": 19900,
+            "picUrl": "https://img.ltwebstatic.com/images3_pi/2020/12/18/1608259440b98f56fe2c5f016e6c80294968d2602b_thumbnail_405x552.webp",
+            "title": "2 قطعة Bowknot  سويت شيرت وسروال لطفل صغير"
+          },
+          {
+            "currentPrice": 8000,
+            "id": 2,
+            "originalPrice": 19900,
+            "picUrl": "https://img.ltwebstatic.com/images3_pi/2020/10/09/16022132129b17c615041d50792b8fd0d424566972_thumbnail_405x552.webp",
+            "title": "2 قطعة Bowknot  سويت شيرت وسروال لطفل صغير"
+          },
+          {
+            "currentPrice": 19900,
+            "id": 3,
+            "originalPrice": 19900,
+            "picUrl": "https://img.ltwebstatic.com/images3_pi/2021/01/07/1609994960d7d23b53a8079a59b1a207cf0b192285_thumbnail_405x552.webp",
+            "title": "2 قطعة Bowknot  سويت شيرت وسروال لطفل صغير"
+          }
+        ]
+      }
+    ]
+  },
+  "errorMessage": "error message"
+}
