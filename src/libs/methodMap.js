@@ -3,15 +3,15 @@
  */
 const methodMap = {
   /** 商品列表 **/
-  ListItems: {url: '/list-items', method: 'get'},
+  ListItems: {url: '/api/list-items', method: 'get'},
   /** 商品详情 **/
-  QueryItem: {url: '/query-item', method: 'get'},
+  QueryItem: {url: '/api/query-item', method: 'get'},
   /** 提交订单 **/
-  ConfirmOrder: {url: '/confirm-order', method: 'get'},
+  ConfirmOrder: {url: '/api/confirm-order', method: 'get'},
   /** 下单 **/
-  PlaceOrder: {url: '/place-order', method: 'post'},
+  PlaceOrder: {url: '/api/place-order', method: 'post'},
   /** 订单成功 **/
-  OrderSuccess: {url: '/order-success', method: 'get'},
+  OrderSuccess: {url: '/api/order-success', method: 'get'},
 }
 
 export default methodMap

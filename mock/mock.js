@@ -9,27 +9,27 @@ var setOnline = [
   {
     name: 'listItems',
     type: 'get',
-    url: '/list-items'
+    url: '/api/list-items'
   },
   {
     name: 'queryItem',
     type: 'get',
-    url: '/query-item'
+    url: '/api/query-item'
   },
   {
     name: 'confirmOrder',
     type: 'get',
-    url: '/confirm-order'
+    url: '/api/confirm-order'
   },
   {
     name: 'placeOrder',
     type: 'post',
-    url: '/place-order'
+    url: '/api/place-order'
   },
   {
     name: 'orderSuccess',
     type: 'get',
-    url: '/order-success'
+    url: '/api/order-success'
   },
 ]
 

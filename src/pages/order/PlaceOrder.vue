@@ -3,10 +3,19 @@
     <div class="place-order-layout" v-show="!isShowAddressModal">
       <topbar title="معلومات الشحن"></topbar>
       
+      <!-- 价格不满足包邮 -->
+      <div class="order-transport mb10" v-if="freeShippingGap">
+        <div class="price-word bold">شحن مجاني </div>
+        <div class="price-word"> لتحصل على </div>
+        <div class="price-shipping">{{accDiv(shipping, 100)}} sar</div>
+        <div class="price-word">أشتري بأكثر من</div>
+        <img src="../../images/icon_transport.png" />
+      </div>
+
+      <!-- sku信息 -->
       <div class="order-sku mb10">
         <div class="order-sku-left">
-          <div class="title mb30">{{confirmData.title}}</div>
-          <div class="price mb30" v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv(confirmData.currentPrice, 100))}}</div>
+          <div class="title">{{confirmData.title}}</div>
           <div class="order-sku-amount-size">
             <div class="amount-btn">
               <div class="amount-decrease" :class="{'gray': params.quantity <= 1}" @click="clickDecrease">-</div>
@@ -21,6 +30,27 @@
         </div>
         <div class="order-sku-right">
           <img :src="confirmData.picture" />
+        </div>
+      </div>
+
+      <!-- 价格 -->
+      <div class="order-price mb10">
+        <div class="total-price">
+          <div class="content">
+            <span v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv(confirmData.currentPrice * params.quantity, 100))}}</span>
+          </div>
+          <div class="tab">:إجمالي المنتج</div>
+        </div>
+        <div class="price-shipping">
+          <div class="content"><span v-if="shipping">SAR {{accDiv(shipping, 100)}}</span></div>
+          <div class="tab">:الشحن</div>
+        </div>
+        <!-- 商品总价加邮费邮件 -->
+        <div class="total">
+          <div class="content price">
+            <span v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv((confirmData.currentPrice * params.quantity + shipping), 100))}}</span>
+          </div>
+          <div class="tab">:الاجمالي</div>
         </div>
       </div>
 
@@ -137,8 +167,8 @@
         <img src="../../images/icon_close.png" class="icon-close" @click="clickHideModal" />
         <div class="order-sku-left">
           <div class="title mb20">{{confirmData.title}}</div>
-          <div class="price mb10" v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv(confirmData.currentPrice, 100))}}</div>
-          <div class="original-price" v-if="confirmData.originalPrice">SAR {{returnFloat(accDiv(confirmData.originalPrice, 100))}}</div>
+          <div class="price mb10" v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv(confirmData.currentPrice * params.quantity, 100))}}</div>
+          <div class="original-price" v-if="confirmData.originalPrice">SAR {{returnFloat(accDiv(confirmData.originalPrice * params.quantity, 100))}}</div>
         </div>
         <div class="order-sku-right">
           <img :src="confirmData.picture" />
@@ -215,7 +245,10 @@ export default {
       colorActiveIndex: 0, // 颜色选择器
       isShowModal: false, // 显示sku弹层
       isShowAddressModal: false, // 显示地址弹层
-
+      freeShippingGap: 0, // 相差的价格 要付邮费
+      shipping: 0, // 邮费
+      
+      // 提交参数
       params: {
         itemId: '', // 商品ID
         color: '', // 颜色
@@ -267,13 +300,15 @@ export default {
         const { code, data } = res
 
         if (code === 0 && data) {
-          const { color, skus, itemId } = data
+          const { color, skus, itemId, shipping, freeShippingGap } = data
           const len = skus.length
           
           this.params.itemId = itemId
           this.params.color = color
          
           this.skus = skus
+          this.freeShippingGap = freeShippingGap || 0
+          this.shipping = shipping
 
           for (let i = 0; i < len; i++) {
             if (color === skus[i].colorName) {
@@ -441,22 +476,84 @@ export default {
 @import '~less/tool.less';
 .place-order-main {
   // padding-bottom: 120/@rem;
+  .order-transport {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 75/@rem;
+    background-color: #FFF;
+    font-size: 26/@rem;
+    
+    .price-shipping {
+      margin: 0 10/@rem;
+      color:#FF2B2B;
+    }
+    img {
+      .wh(32, 32);
+      margin-left: 18/@rem;
+    }
+    .bold {
+      font-weight: bold;
+      margin-right: 10/@rem;
+    }
+  }
+
+  .order-price {
+    width: 100%;
+    height: 206/@rem;
+    padding: 0 30/@rem;
+    padding-top: 20/@rem;
+    background-color: #FFF;
+    
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .content {
+      // width: 550/@rem;
+      text-align: right;
+      &.price {
+        color: #FF2B2B;
+        font-weight: bold;
+      }
+    }
+    .tab {
+      margin-left: 45/@rem;
+      width: 110/@rem;
+      text-align: right;
+    }
+    .total-price {
+      height: 40/@rem;
+    }
+    .price-shipping {
+      height: 40/@rem;
+      margin-bottom: 20/@rem;
+    }
+    .total {
+      border-top: 1px solid #EBEBEB;
+      height: 80/@rem;
+    }
+  }
 
   .order-sku {
     background-color: #FFF;
     width: 100%;
-    height: 252/@rem;
+    // height: 252/@rem;
 
     display: flex;
+    justify-content: flex-end;
     padding: 20/@rem 30/@rem;
     .order-sku-left {
-      width: 500/@rem;
+      width: 550/@rem;
       text-align: right;
       .title {
         line-height: 26/@rem;
         font-size: 26/@rem;
         color: #666666;
-        margin-top: 10/@rem;
+        margin-bottom: 50/@rem;
         .line2();
       }
       .price {
@@ -502,7 +599,7 @@ export default {
           background: #F6F6F6;
           border-radius: 8/@rem;
           display: flex;
-          margin-left: 138/@rem;
+          margin-left: 180/@rem;
           cursor: pointer;
           .size-info {
             .whl(127, 48);
@@ -518,7 +615,7 @@ export default {
     .order-sku-right {
       margin-left: 30/@rem;
       img {
-        .wh(160, 212);
+        .wh(117, 155);
       }
     }
   }

@@ -8,6 +8,8 @@
     "title": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشومطبوعة تي شيرت وشورت مجموعة",
     "currentPrice": "19900",
     "originalPrice": "20000",
+    "freeShippingGap": 1000,
+    "shipping": 3000,
     "skus": [
       {
         "colorName": "white",

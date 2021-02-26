@@ -20,39 +20,39 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/list-items': {
-      //   target: 'http://220.184.255.86:9000',
-      //   changeOrigin: true, // 是否跨域
-      //   secure: false
-      // },
-      // '/query-item': {
-      //   target: 'http://220.184.255.86:9000',
-      //   changeOrigin: true,
-      //   secure: false
-      // },
-      // '/confirm-order': {
-      //   target: 'http://220.184.255.86:9000',
-      //   changeOrigin: true,
-      //   secure: false
-      // },
-      // '/place-order': {
-      //   target: 'http://220.184.255.86:9000',
-      //   changeOrigin: true,
-      //   secure: false
-      // },
-      // '/order-success': {
-      //   target: 'http://220.184.255.86:9000',
-      //   changeOrigin: true,
-      //   secure: false
-      // },
-      // '/img': {
-      //   target: 'http://220.184.255.86:9000',
-      //   changeOrigin: true,
-      //   secure: false,
-      //   pathRewrite: {
-      //     '^/img': '/img'//需要rewrite重写
-      //   }
-      // }
+      '/list-items': {
+        target: 'http://220.184.255.86:9000',
+        changeOrigin: true, // 是否跨域
+        secure: false
+      },
+      '/query-item': {
+        target: 'http://220.184.255.86:9000',
+        changeOrigin: true,
+        secure: false
+      },
+      '/confirm-order': {
+        target: 'http://220.184.255.86:9000',
+        changeOrigin: true,
+        secure: false
+      },
+      '/place-order': {
+        target: 'http://220.184.255.86:9000',
+        changeOrigin: true,
+        secure: false
+      },
+      '/order-success': {
+        target: 'http://220.184.255.86:9000',
+        changeOrigin: true,
+        secure: false
+      },
+      '/img': {
+        target: 'http://220.184.255.86:9000',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '^/img': '/img'//需要rewrite重写
+        }
+      }
     },
     cssSourceMap: false,
   }
