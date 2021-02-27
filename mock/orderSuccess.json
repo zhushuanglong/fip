@@ -11,7 +11,8 @@
     "picture": "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
     "quantity": 3,
     "currentPrice": 19900,
-    "orderStatus": "运送中"
+    "orderStatus": "运送中",
+    "actualPrice": 68800
   },
   "errorMessage": "string"
 }

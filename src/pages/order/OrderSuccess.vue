@@ -5,8 +5,8 @@
       <img src="../../images/order_success_bg.png" />
       <div class="title">{{successData.itemTitle}}</div>
       <div class="price">
-        <div class="current-price" v-if="successData.currentPrice">SAR {{returnFloat(accDiv(successData.currentPrice, 100))}}</div>
-        <div class="number">X {{successData.quantity}}</div>
+        <div class="current-price" v-if="successData.actualPrice">SAR {{returnFloat(accDiv(successData.actualPrice, 100))}}</div>
+        <!-- <div class="number">X {{successData.quantity}}</div> -->
       </div>
     </div>
 
@@ -24,7 +24,7 @@
           <div class="tab">وقت الطلب</div>
         </li>
         <li>
-          <div class="content">{{successData.orderStatus}}</div>
+          <div class="content">لم تشحن /جاري التعبئة</div>
           <div class="tab">حالة الطلب</div>
         </li>
         <li>
@@ -85,8 +85,6 @@ export default {
         } else {
           this.$Toast(errorMessage || 'الشبكة مشغولة. الرجاء معاودة المحاولة في	 وقت لاحق	.')
         }
-      }, err => {
-        this.$Toast(err || 'الشبكة مشغولة. الرجاء معاودة المحاولة في	 وقت لاحق	.')
       })
     }
   },

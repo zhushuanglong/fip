@@ -80,27 +80,27 @@
       <ul class="size-table mb30">
         <li>
           <div class="content"> 2-5 يوم عمل</div>
-          <div class="tab">وقت التسليم:</div>
+          <div class="tab">:وقت التسليم</div>
         </li>
         <li>
           <div class="content">في غضون ساعة</div>
-          <div class="tab">وقت معالجة الطلب:</div>
+          <div class="tab">:وقت معالجة الطلب</div>
         </li>
         <li>
           <div class="content">وقت المعالجة + وقت الشحن =</div>
-          <div class="tab"> وقت الاستلام</div>
+          <div class="tab">: وقت الاستلام</div>
         </li>
         <li>
           <div class="content"> السعودية ، الإمارات العربية المتحدة</div>
-          <div class="tab">الخدمات:</div>
+          <div class="tab">:الخدمات</div>
         </li>
         <li>
           <div class="content">بما في ذلك ضريبة القيمة المضافة</div>
-          <div class="tab">الوصف الضريبي:</div>
+          <div class="tab">:الوصف الضريبي</div>
         </li>
         <li>
           <div class="content">الدفع عند الإستلام السعودي حاليا يدعم فقط الدفع عن طريق</div>
-          <div class="tab">ملاحظة:</div>
+          <div class="tab">:ملاحظة</div>
         </li>
       </ul>
       <div class="size-contact">
@@ -240,8 +240,6 @@ export default {
         } else {
           this.$Toast(errorMessage)
         }
-      }, err => {
-        this.$Toast(err)
       })
     },
     
@@ -495,13 +493,13 @@ export default {
   .detail-swipe {
     position: relative;
     width: 100%;
-    height: 560/@rem;
+    height: 680/@rem;
     overflow: hidden;
     .swiper-slide {
       width: 510/@rem !important;
+      background-color: #EDEDED;
       img {
-        width: 510/@rem;
-        // .wh(510, 560);
+        .wh(510, 680);
       }
       // img[lazy=loading] {
       //   width: 1rem;

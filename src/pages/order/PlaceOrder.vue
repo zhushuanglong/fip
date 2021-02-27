@@ -4,10 +4,13 @@
       <topbar title="معلومات الشحن"></topbar>
       
       <!-- 价格不满足包邮 -->
-      <div class="order-transport mb10" v-if="freeShippingGap">
+      <div class="order-transport mb10">
         <div class="price-word bold">شحن مجاني </div>
         <div class="price-word"> لتحصل على </div>
-        <div class="price-shipping">{{accDiv(shipping, 100)}} sar</div>
+        <div class="price-shipping">
+          <span v-if="shipping !== 0">{{accDiv(freeShippingGap, 100)}} sar</span>
+          <span v-if="shipping === 0">0 sar</span>
+        </div>
         <div class="price-word">أشتري بأكثر من</div>
         <img src="../../images/icon_transport.png" />
       </div>
@@ -22,8 +25,8 @@
               <div class="amount-number">{{params.quantity}}</div>
               <div class="amount-increase" :class="{'gray': params.quantity >= 20}" @click="clickIncrease">+</div>
             </div>
-            <div class="size-btn">
-              <div class="size-info" @click="clickSize">{{confirmData.colorName}},Free</div>
+            <div class="size-btn" @click="clickSize">
+              <div class="size-info">{{confirmData.colorName}},حرر</div>
               <img src="../../images/icon_down.png" />
             </div>
           </div>
@@ -67,6 +70,7 @@
               <div class="error-message">{{errorObj.customerName}}</div>
             </div>
           </li>
+          <li class="line"></li>
           <li>
             <!-- 联系方式 -->
             <div class="content">
@@ -76,9 +80,10 @@
                 v-model.trim="params.mobile"
                 @blur="checkMobile" />
             </div>
-            <div class="name">699+</div>
+            <div class="name">966+</div>
             <div class="error-message">{{errorObj.mobile}}</div>
           </li>
+          <li class="line"></li>
           <li>
             <!-- 邮箱 -->
             <div class="content">
@@ -108,6 +113,7 @@
             </div>
             <div class="error-message">{{errorObj.state}}</div>
           </li>
+          <li class="line"></li>
           <!-- 市区 -->
           <li @click="clickAddressModal('city')">
             <img src="../../images/icon_left.png" class="icon-left" />
@@ -120,6 +126,7 @@
             </div>
             <div class="error-message">{{errorObj.city}}</div>
           </li>
+          <li class="line"></li>
           <!-- 详细地址 -->
           <li>
             <div class="content">
@@ -131,6 +138,7 @@
             </div>
             <div class="error-message">{{errorObj.detailAddress}}</div>
           </li>
+          <li class="line"></li>
           <!-- 备注，非必填 -->
           <li>
             <div class="content">
@@ -218,7 +226,7 @@
           <div class="title">كمية</div>
         </div>
       </div>
-      <div class="fixed-bottom">
+      <div class="fixed-bottom" style="position: absolute;">
         <div class="btn" @click="clickHideModal">موافق</div>
       </div>
     </div>
@@ -247,6 +255,9 @@ export default {
       isShowAddressModal: false, // 显示地址弹层
       freeShippingGap: 0, // 相差的价格 要付邮费
       shipping: 0, // 邮费
+      timerDecrease: null, // 减少定时器
+      timerIncrease: null, // 增加定时器
+      // debounceGetConfirmOrder: false, // 接口请求拦截器
       
       // 提交参数
       params: {
@@ -290,43 +301,52 @@ export default {
   mounted () {},
   methods: {
     // 订单信息
-    getConfirmOrder() {
+    // 加减方法 - 需要去拿 shipping 和 freeShippingGap
+    getConfirmOrder(isIncreaseOrDecrease = false) {
       const id = this.$route.query.id
       const color = this.$route.query.color
+      
       this.request('ConfirmOrder', {
         item_id: id,
         color,
+        quantity: this.params.quantity, // 数量
       }).then(res => {
-        const { code, data } = res
 
-        if (code === 0 && data) {
+        const { code, data } = res
+        
+        if (code === 0 && data ) {
           const { color, skus, itemId, shipping, freeShippingGap } = data
-          const len = skus.length
           
-          this.params.itemId = itemId
-          this.params.color = color
-         
-          this.skus = skus
+          // 邮费
           this.freeShippingGap = freeShippingGap || 0
           this.shipping = shipping
 
-          for (let i = 0; i < len; i++) {
-            if (color === skus[i].colorName) {
-              this.confirmData = skus[i]
-              break
+          if (!isIncreaseOrDecrease) {
+            const len = skus.length
+            this.params.itemId = itemId
+            this.params.color = color
+            this.skus = skus
+
+            for (let i = 0; i < len; i++) {
+              if (color === skus[i].colorName) {
+                this.confirmData = skus[i]
+                break
+              }
             }
           }
         } else {
           this.$Toast(res.errorMessage || 'الشبكة مشغولة. الرجاء معاودة المحاولة في	 وقت لاحق	.')
         }
+
       })
     },
 
     // 下单
     placeOrder() {
+      // console.log(this.params)
       // 校验是否填写完整
       if (!this.handleValidateAll()) return
-
+      
       this.request('PlaceOrder', this.params).then((res) => {
         const { code, data, errorMessage } = res
 
@@ -345,6 +365,13 @@ export default {
       if (this.params.quantity <= 1) return
 
       this.params.quantity--
+      if (this.timerDecrease !== null) {
+        clearTimeout(this.timerDecrease)          
+      }
+
+      this.timerDecrease = setTimeout(() => {
+        this.getConfirmOrder(true)
+      }, 1000)
     },
 
     // 加法
@@ -352,7 +379,16 @@ export default {
       if (this.params.quantity >= 20) return
 
       this.params.quantity++
+      if (this.timerIncrease !== null) {
+        clearTimeout(this.timerIncrease)          
+      }
+
+      this.timerIncrease = setTimeout(() => {
+        this.getConfirmOrder(true)
+      }, 1000)
     },
+
+  
 
     // 显示省、市 地址弹层
     clickAddressModal(state = '') {
@@ -485,6 +521,8 @@ export default {
     height: 75/@rem;
     background-color: #FFF;
     font-size: 26/@rem;
+
+    transition: all .4s;
     
     .price-shipping {
       margin: 0 10/@rem;
@@ -629,7 +667,6 @@ export default {
         position: relative;
         width: 100%;
         display: flex;
-        border-bottom: 1px solid #EBEBEB;
         padding-right: 10/@rem;
         
         .name {
@@ -676,8 +713,11 @@ export default {
           top: 36/@rem;
         }
       }
-      li:last-child {
-        border: none;
+      // li:last-child {
+      //   border: none;
+      // }
+      li.line {
+        border-bottom: 1px solid #EBEBEB;
       }
     }
   }
@@ -726,6 +766,8 @@ export default {
   width: 100%;
   background-color: #FFFFFF;
   padding-bottom: 110/@rem;
+
+  -webkit-overflow-scroll: touch; // 解决ios position fixed问题
 
   .order-sku {
     position: relative;

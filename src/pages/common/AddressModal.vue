@@ -1,5 +1,5 @@
 <template>
-  <div class="address-main a-fadeinT" v-if="show">
+  <div class="address-main a-fadeinT" v-if="show" >
     <topbar title="اختر العنوان" :hasClose="true" :clickClose="clickClose"></topbar>
     <div class="title mb20">
       <span v-if="isShowCity" class="current-state" @click="clickChooseState">{{currentState}}</span>
@@ -277,7 +277,8 @@ export default {
     clickCity(city, index) {
       this.currentCity = city
       this.currentCityIndex = index
-
+      // this.$emit('update:show', false)
+      this.clickClose()
       this.$emit('oncity', city)
     },
     clickChooseState() {

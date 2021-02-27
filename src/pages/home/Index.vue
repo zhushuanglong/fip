@@ -16,7 +16,7 @@
 
       <!-- goods -->
       <div class="goods-layout" v-for="item in goodsData">
-        <div class="goods-title"># {{item.region}} #</div>
+        <div class="goods-title">{{item.region}}</div>
         <Goods :data="item.data"></Goods>
         <div class="goods-line"></div>
       </div>
@@ -64,8 +64,6 @@ export default {
         } else {
           this.$Toast(errorMessage || 'الشبكة مشغولة. الرجاء معاودة المحاولة في	 وقت لاحق	.')
         }
-      }, err => {
-        this.$Toast(err)
       })
     },
     // 点击更多图标

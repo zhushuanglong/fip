@@ -11,10 +11,10 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/contact" >
+          <a href="javascript:;">
             <img src="../images/icon_contact.png" />
             <p>اتصل</p>
-          </router-link>
+          </a>
         </li>
       </ul>
     </div>
