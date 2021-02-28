@@ -16,7 +16,18 @@
         "originalPrice": "19900",
         "currentPrice": "19000",
         "title": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشورت مجموعة مطبوعة تي شيرت وشورت مجموعة",
-        "detail": "<html><body>description...</body></html>"
+        "detail": [
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/157646208062af26119fe5416f44dd07f006798d75_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/15764620696f4392ee5faa22490158b8e08041a690_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/157646207337fef01906f64783832aed7be3e9825c_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/15764620763087d6efd1afcde63009e866e14eed66_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/1576462084cc10f0a43373747414a3144e19dcfe80_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/157646208062af26119fe5416f44dd07f006798d75_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/15764620696f4392ee5faa22490158b8e08041a690_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/157646207337fef01906f64783832aed7be3e9825c_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2019/12/16/15764620763087d6efd1afcde63009e866e14eed66_thumbnail_750x.webp"
+        ]
       },
       {
         "colorName": "yellow",
@@ -29,7 +40,11 @@
         "originalPrice": "20000",
         "currentPrice": "10000",
         "title": " قطعة الأزهار بلا أكمام البولكا نقطة مطبوعة تي شيرت وشورت مجموعة مطبوعة تي شيرت وشورت مجموعة",
-        "detail": "<html><body>description...</body></html>"
+        "detail": [
+          "https://img.ltwebstatic.com/images3_pi/2020/11/12/1605156427920ed22dbae148b054b6e62b04c8a16b_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2020/11/12/1605156429cfb93c8be41d7db556136a6441165dc1_thumbnail_750x.webp",
+          "https://img.ltwebstatic.com/images3_pi/2020/11/12/1605156431a061c1062e216881313f1a6081bfbc72_thumbnail_750x.webp"
+        ]
       }
     ] 
   },

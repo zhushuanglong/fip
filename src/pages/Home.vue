@@ -11,7 +11,7 @@
           </router-link>
         </li>
         <li>
-          <a href="javascript:;">
+          <a href="javascript:;" @click="clickContact">
             <img src="../images/icon_contact.png" />
             <p>اتصل</p>
           </a>
@@ -28,9 +28,25 @@ export default {
   components: {
     HomeIndex
   },
-  beforeRouteLeave: function(to, from , next){
+  beforeRouteLeave(to, from , next) {
     document.documentElement.style.overflow = 'auto'
     next()
+  },
+  methods: {
+    clickContact() {
+      if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+        // window.location.href = 'https://wa.me/8615605810625'
+        setTimeout(() => {
+          window.location.href = 'https://itunes.apple.com/us/app/whatsapp-messenger/id310633997?mt=8'
+        }, 2000)
+      } else if (window.navigator.userAgent.match(/android/i)) {
+        // window.location.href = 'https://wa.me/8615605810625'
+        setTimeout(() => {
+          window.location.href = 'https://play.google.com/store/apps/details?id=com.whatsapp'
+        }, 2000)
+      }
+      window.location.href = 'https://wa.me/8615605810625'
+    }
   }
 }
 </script>

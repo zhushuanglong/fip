@@ -45,7 +45,7 @@
           <div class="tab">:إجمالي المنتج</div>
         </div>
         <div class="price-shipping">
-          <div class="content"><span v-if="shipping">SAR {{accDiv(shipping, 100)}}</span></div>
+          <div class="content"><span v-if="shipping">SAR {{returnFloat(accDiv(shipping, 100))}}</span></div>
           <div class="tab">:الشحن</div>
         </div>
         <!-- 商品总价加邮费邮件 -->
@@ -559,7 +559,7 @@ export default {
       }
     }
     .tab {
-      margin-left: 45/@rem;
+      margin-left: 40/@rem;
       width: 110/@rem;
       text-align: right;
     }
@@ -585,6 +585,7 @@ export default {
     justify-content: flex-end;
     padding: 20/@rem 30/@rem;
     .order-sku-left {
+      position: relative;
       width: 550/@rem;
       text-align: right;
       .title {
@@ -600,8 +601,13 @@ export default {
         color: #FF2B2B;
       }
       .order-sku-amount-size {
-        .wh(186, 48);
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 48/@rem;
         display: flex;
+        justify-content: flex-end;
 
         .amount-btn {
           width: 186/@rem;

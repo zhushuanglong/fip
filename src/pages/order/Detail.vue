@@ -111,15 +111,17 @@
     </div>
 
     <!-- 详细信息 -->
-    <div class="detail-info mb20" style="display: none;">
-      <div class="title">تفاصيل المنتج</div>
-      <div v-html="data.detail"></div>
+    <div class="detail-info mb20" v-if="currentSku && currentSku.detail">
+      <div class="title mb30">تفاصيل المنتج</div>
+      <div v-for="item in currentSku.detail">
+        <img v-lazy="item" />
+      </div>
     </div>
 
     <!-- 吸底操作栏 -->
     <div class="detail-bottom">
       <div class="detail-operation">
-        <div class="contact">
+        <div class="contact" @click="clickContact">
           <div class="title">اتصل الآن</div>
           <img src="../../images/icon_detail_contact.png" >
         </div>
@@ -257,6 +259,21 @@ export default {
     // 展示大图
     clickShowBigImage(index) {
       console.log(index)
+    },
+
+    clickContact() {
+      if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+        // window.location.href = 'https://wa.me/8615605810625'
+        setTimeout(() => {
+          window.location.href = 'https://itunes.apple.com/us/app/whatsapp-messenger/id310633997?mt=8'
+        }, 2000)
+      } else if (window.navigator.userAgent.match(/android/i)) {
+        // window.location.href = 'https://wa.me/8615605810625'
+        setTimeout(() => {
+          window.location.href = 'https://play.google.com/store/apps/details?id=com.whatsapp'
+        }, 2000)
+      }
+      window.location.href = 'https://wa.me/8615605810625'
     }
   }
 } 
@@ -449,6 +466,9 @@ export default {
       font-weight: bold;
       color: #232323;
     }
+    img {
+      width: 100%;
+    }
   }
   
   // 详情底部
@@ -501,11 +521,6 @@ export default {
       img {
         .wh(510, 680);
       }
-      // img[lazy=loading] {
-      //   width: 1rem;
-      //   position: absolute;
-      //   left: 2.3rem;
-      // }
       &:last-child {
         margin-right: 0;
       }

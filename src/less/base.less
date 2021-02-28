@@ -206,8 +206,15 @@ input[type="radio"] {
   top: 0;
   z-index: 5;
   width: 100%;
-  border-bottom: 1px solid #E3E3E3;
-  background-color: #FFFFFF;
+  
+  .global-top-bar-center {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 750/@rem;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E3E3E3;
+  }
   .back, .home {
     display: block;
     position: absolute;
@@ -264,10 +271,11 @@ input[type="radio"] {
   z-index: 5;
   width: 100%;
   height: 99/@rem;
-  border-top: 1px solid #E3E3E3;
+  
   ul {
     display: block;
     height: 100%;
+    border-top: 1px solid #E3E3E3;
     li {
       float: left;
       width: 50%;
@@ -336,6 +344,7 @@ input[type="radio"] {
   bottom: 0;
   z-index: 5;
   width: 100%;
+  max-width: 750/@rem;
   height: 108/@rem;;
   background: #FFFFFF;
   border-top: 1px solid #DDD;

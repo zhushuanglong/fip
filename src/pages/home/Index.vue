@@ -4,8 +4,10 @@
       <!-- topbar -->
       <div class="top-bar-main">
         <div class="top-bar">
-          <img class="icon-logo fl" src="../../images/icon_logo.png"/>
-          <img class="icon-more fr" src="../../images/icon_more.png" @click="iconMoreClick"/>
+          <div class="global-center bgc">
+            <img class="icon-logo fl" src="../../images/icon_logo.png"/>
+            <img class="icon-more fr" src="../../images/icon_more.png" @click="iconMoreClick"/>
+          </div>
         </div>
         <div class="top-bar-mat"></div>
       </div>
@@ -92,12 +94,14 @@ export default {
       top: 0;
       width: 100%;
       height: 88/@rem;
-      padding: 0 35/@rem;
-      background-color: #fff;
-      line-height: 88/@rem;
       text-align: center;
-      background-color: #fff;
-      
+     
+      .bgc {
+        height: 88/@rem;
+        background-color: #fff;
+        padding: 0 35/@rem;
+      }
+
       .icon-logo {
         .wh(164, 44);
         margin-top: 22/@rem;

@@ -79,15 +79,6 @@ export default new Router({
       }
     },
     {
-      name: 'contact',
-      path: '/contact',
-      component: function (resolve) {
-        require.ensure([], function () {
-          resolve(require('pages/Contact'));
-        }, 'contact');
-      }
-    },
-    {
       name: '404',
       path: '/404',
       component: function (resolve) {
