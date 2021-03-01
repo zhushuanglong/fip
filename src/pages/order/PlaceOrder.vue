@@ -242,7 +242,8 @@
     <!-- 地址弹层 -->
     <AddressModal 
       :show="isShowAddressModal" 
-      :clickClose="clickAddressModalClose" 
+      :clickClose="clickAddressModalClose"
+      :isClickShowState="isClickShowState"
       @onstate="updateState" 
       @oncity="updateCity"></AddressModal>
   </div>
@@ -265,6 +266,8 @@ export default {
       timerDecrease: null, // 减少定时器
       timerIncrease: null, // 增加定时器
       // debounceGetConfirmOrder: false, // 接口请求拦截器
+
+      isClickShowState: false, // 点击进入
       
       // 提交参数
       params: {
@@ -393,11 +396,10 @@ export default {
       }, 1000)
     },
 
-  
-
     // 显示省、市 地址弹层
     clickAddressModal(state = '') {
       this.isShowAddressModal = true
+      this.isClickShowState = state === 'state' ? true : false
     },
 
     // 关闭地址弹层
@@ -728,9 +730,6 @@ export default {
       }
     }
   }
-  
-  .order-presonal-info {}
-  .order-address {}
 
   .order-payment {
     width: 100%;

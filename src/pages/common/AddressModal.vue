@@ -2,8 +2,8 @@
   <div class="address-main a-fadeinT" v-if="show" >
     <topbar title="اختر العنوان" :hasClose="true" :clickClose="clickClose"></topbar>
     <div class="title mb20">
-      <span v-if="isShowCity" class="current-state" @click="clickChooseState">{{currentState}}</span>
-      <span v-if="isShowCity" class="choose-city">{{currentCity || 'اختر المدينة'}}</span>
+      <span v-if="!isShowState" class="current-state" @click="clickChooseState">{{currentState}}</span>
+      <span v-if="!isShowState" class="choose-city">{{currentCity || 'اختر المدينة'}}</span>
       <span v-else>{{title}}</span>
     </div>
     <div class="address-content">
@@ -17,7 +17,7 @@
         </li>
 
         <li
-          v-if="isShowCity"
+          v-if="!isShowState"
           v-for="(city, index) in cityMap[currentState]"
           :class="{'active': currentCityIndex === index}"
           @click="clickCity(city, index)"
@@ -39,13 +39,16 @@ export default {
     clickClose: {
       type: Function,
       default: () => {}
-    }
+    },
+    isClickShowState: {
+      type: Boolean,
+      default: false // 显示省
+    },
   },
   data() {
     return {
       title: 'اختر الولاية / المقاطعة', // 选择省
       isShowState: true, // 显示省
-      isShowCity: false, // 显示市
 
       currentState: '', // 已选的省
       currentCity: '', // 已选的市
@@ -258,11 +261,15 @@ export default {
     }
   },
   mounted() {},
-  watch: {},
+  watch: {
+    isClickShowState(newVal) {
+      this.isShowState = newVal
+    }
+  },
   methods: {
+    // 点击省
     clickSate(state, index) {
       this.isShowState = false
-      this.isShowCity = true
 
       if (this.currentState !== state) {
         this.currentState = state
@@ -274,6 +281,7 @@ export default {
         this.$emit('oncity', '')
       }
     },
+    // 点击市
     clickCity(city, index) {
       this.currentCity = city
       this.currentCityIndex = index
@@ -281,10 +289,10 @@ export default {
       this.clickClose()
       this.$emit('oncity', city)
     },
+    // 选择 - 顶部右侧的省 ，表单内重新选择省也是此操作
     clickChooseState() {
       this.isShowState = true
-      this.isShowCity = false
-    }
+    },
   }
 }
 </script>
