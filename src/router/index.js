@@ -67,6 +67,9 @@ export default new Router({
         require.ensure([], function () {
           resolve(require('pages/order/PlaceOrder'));
         }, 'placeorder');
+      },
+      meta: {
+        keepAlive: true
       }
     },
     {

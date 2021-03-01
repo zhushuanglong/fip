@@ -26,7 +26,7 @@
         <div class="current-price red"  v-if="currentSku.currentPrice">SAR&nbsp;{{returnFloat(accDiv(currentSku.currentPrice, 100))}}</div>
       </div>
       <div class="tab-title">
-        <div class="t1">رمادي</div>
+        <div class="t1">{{currentSku.colorName}}</div>
         <div class="t2">:اللون</div>
       </div>
       <div class="sku-color">
@@ -155,6 +155,10 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+  },
+  beforeRouteLeave(to, from , next) {
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
   },
   data () {
     return {
@@ -480,6 +484,7 @@ export default {
     background-color: #FFFFFF;
     border-top: 1px solid #DDDDDD;
     padding: 14/@rem 30/@rem;
+    max-width: 750/@rem;
 
     .detail-operation {
       display: flex;

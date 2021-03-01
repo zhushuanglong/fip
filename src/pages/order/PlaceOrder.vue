@@ -160,7 +160,7 @@
       <div class="order-wechat">
         <div class="order-wechat-content">
           <div class="wechat-info">يمكنك إرجاع البضائع في غضون 7 أيام ،تسليم البضائع مجانًا والدفع عند التسليم.</div>
-          <div class="wechat-info2">WhatsApp: +86 150089 3090</div>
+          <div class="wechat-info2">WhatsApp: +8615605810625</div>
         </div>
       </div>
 
@@ -175,8 +175,10 @@
         <img src="../../images/icon_close.png" class="icon-close" @click="clickHideModal" />
         <div class="order-sku-left">
           <div class="title mb20">{{confirmData.title}}</div>
-          <div class="price mb10" v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv(confirmData.currentPrice * params.quantity, 100))}}</div>
-          <div class="original-price" v-if="confirmData.originalPrice">SAR {{returnFloat(accDiv(confirmData.originalPrice * params.quantity, 100))}}</div>
+          <div class="pirce-layout">
+            <div class="price" v-if="confirmData.currentPrice">SAR {{returnFloat(accDiv(confirmData.currentPrice * params.quantity, 100))}}</div>
+            <div class="original-price" v-if="confirmData.originalPrice">SAR {{returnFloat(accDiv(confirmData.originalPrice * params.quantity, 100))}}</div>
+          </div>
         </div>
         <div class="order-sku-right">
           <img :src="confirmData.picture" />
@@ -783,6 +785,11 @@ export default {
       font-size: 26/@rem;
       text-decoration: line-through;
     }
+    .pirce-layout {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
     .order-sku-left .price {
       font-size: 36/@rem;
     }
@@ -791,10 +798,17 @@ export default {
     }
     .icon-close {
       position: absolute;
+      z-index: 5;
       left: 20/@rem;
       top: 10/@rem;
       .wh(44, 44);
       cursor: pointer;
+    }
+
+    .order-sku-right {
+      img {
+        .wh(160, 212);
+      }
     }
   }
 

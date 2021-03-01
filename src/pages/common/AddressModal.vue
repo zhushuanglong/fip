@@ -3,7 +3,7 @@
     <topbar title="اختر العنوان" :hasClose="true" :clickClose="clickClose"></topbar>
     <div class="title mb20">
       <span v-if="isShowCity" class="current-state" @click="clickChooseState">{{currentState}}</span>
-      <span v-if="isShowCity" class="choose-city">اختر المدينة</span>
+      <span v-if="isShowCity" class="choose-city">{{currentCity || 'اختر المدينة'}}</span>
       <span v-else>{{title}}</span>
     </div>
     <div class="address-content">
