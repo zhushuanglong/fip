@@ -71,11 +71,9 @@ export default {
     // 点击更多图标
     iconMoreClick() {
       this.isShow = true
-      document.documentElement.style.overflow = 'hidden'
     },
     clickHideRightSlide() {
       this.isShow = false
-      document.documentElement.style.overflow = 'auto'
     }
   }
 }

@@ -51,7 +51,6 @@ export default {
   methods: {
     iconMoreClick() {
       this.$emit('update:isShow', false)
-      document.documentElement.style.overflow = 'auto'
     }
   }
 }
@@ -63,7 +62,8 @@ export default {
 .right-slide-main {
   position: fixed;
   top: 0;
-  left: 220/@rem;
+  left: 50%;
+  margin-left: -155/@rem;
   z-index: 15;
   height: 100vh;
 

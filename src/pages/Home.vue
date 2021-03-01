@@ -28,10 +28,6 @@ export default {
   components: {
     HomeIndex
   },
-  beforeRouteLeave(to, from , next) {
-    document.documentElement.style.overflow = 'auto'
-    next()
-  },
   methods: {
     clickContact() {
       if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {

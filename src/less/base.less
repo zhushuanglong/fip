@@ -19,7 +19,7 @@ body {
   
   position: relative;
   width: 100%;
-  // height: 100%;
+  height: 100%;
   color: #333;
   background-color: #F6F6F6;
   font-family: Arial,PingFangSC-Regular,Helvetica Neue,Tahoma,Hiragino Sans GB,Microsoft Yahei,sans-serif;
@@ -155,13 +155,16 @@ input[type="radio"] {
 .bg-mask {
   display: none;
   width: 100%;
+  max-width: 750/@rem;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
   position: fixed;
-  left: 0;
+  left:50%;
   top: 0;
   bottom: 0;
   z-index: 10;
+  transform: translate(-50%);
+  
   &.show {
     display: block;
   }

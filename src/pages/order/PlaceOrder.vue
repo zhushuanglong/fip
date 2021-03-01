@@ -298,10 +298,6 @@ export default {
   components: {
     AddressModal
   },
-  beforeRouteLeave: function(to, from , next){
-    document.documentElement.style.overflow = 'auto'
-    next()
-  },
   computed: {},
   created () {
     if (this.$route.query.source) {
@@ -402,13 +398,11 @@ export default {
     // 显示省、市 地址弹层
     clickAddressModal(state = '') {
       this.isShowAddressModal = true
-      document.documentElement.style.overflow = 'hidden'
     },
 
     // 关闭地址弹层
     clickAddressModalClose() {
       this.isShowAddressModal = false
-      document.documentElement.style.overflow = 'auto'
     },
 
     updateState(state) {
@@ -424,13 +418,11 @@ export default {
     // 隐藏sku弹层
     clickHideModal() {
       this.isShowModal = false
-      document.documentElement.style.overflow = 'auto'
     },
     
     // 点击选择size和颜色
     clickSize() {
       this.isShowModal = true
-      document.documentElement.style.overflow = 'hidden'
     },
 
     // 校验 - 辅助函数
@@ -777,12 +769,13 @@ export default {
   position: fixed;
   z-index: 15;
   bottom: 0;
-  left: 0;
   width: 100%;
-  background-color: #FFFFFF;
   padding-bottom: 110/@rem;
 
-  -webkit-overflow-scroll: touch; // 解决ios position fixed问题
+  // left: 50%;
+  // transform: translate(-50%);
+  max-width: 750/@rem;
+  background-color: #FFFFFF;
 
   .order-sku {
     position: relative;
