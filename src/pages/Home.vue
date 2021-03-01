@@ -35,12 +35,10 @@ export default {
   methods: {
     clickContact() {
       if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-        // window.location.href = 'https://wa.me/8615605810625'
         setTimeout(() => {
           window.location.href = 'https://itunes.apple.com/us/app/whatsapp-messenger/id310633997?mt=8'
         }, 2000)
       } else if (window.navigator.userAgent.match(/android/i)) {
-        // window.location.href = 'https://wa.me/8615605810625'
         setTimeout(() => {
           window.location.href = 'https://play.google.com/store/apps/details?id=com.whatsapp'
         }, 2000)

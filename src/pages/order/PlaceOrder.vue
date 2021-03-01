@@ -3,6 +3,11 @@
     <div class="place-order-layout" v-show="!isShowAddressModal">
       <topbar title="معلومات الشحن"></topbar>
       
+      <!-- 图片预加载 TODO  -->
+      <div style="display:none;">
+        <img v-for="item in skus" :src="item.colorUrl">
+      </div>
+      
       <!-- 价格不满足包邮 -->
       <div class="order-transport mb10">
         <div class="price-word bold">شحن مجاني </div>
@@ -286,6 +291,10 @@ export default {
       }
     }
   },
+  beforeRouteLeave(to, from , next) {
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
+  },
   components: {
     AddressModal
   },
@@ -304,7 +313,7 @@ export default {
   methods: {
     // 订单信息
     // 加减方法 - 需要去拿 shipping 和 freeShippingGap
-    getConfirmOrder(isIncreaseOrDecrease = false) {
+    getConfirmOrder() {
       const id = this.$route.query.id
       const color = this.$route.query.color
       
@@ -318,22 +327,20 @@ export default {
         
         if (code === 0 && data ) {
           const { color, skus, itemId, shipping, freeShippingGap } = data
-          
+          const len = skus.length
+
           // 邮费
           this.freeShippingGap = freeShippingGap || 0
           this.shipping = shipping
 
-          if (!isIncreaseOrDecrease) {
-            const len = skus.length
-            this.params.itemId = itemId
-            this.params.color = color
-            this.skus = skus
+          this.params.itemId = itemId
+          this.params.color = color
+          this.skus = skus
 
-            for (let i = 0; i < len; i++) {
-              if (color === skus[i].colorName) {
-                this.confirmData = skus[i]
-                break
-              }
+          for (let i = 0; i < len; i++) {
+            if (color === skus[i].colorName) {
+              this.confirmData = skus[i]
+              break
             }
           }
         } else {
@@ -372,7 +379,7 @@ export default {
       }
 
       this.timerDecrease = setTimeout(() => {
-        this.getConfirmOrder(true)
+        this.getConfirmOrder()
       }, 1000)
     },
 

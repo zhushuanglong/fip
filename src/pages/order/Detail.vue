@@ -26,7 +26,7 @@
         <div class="current-price red"  v-if="currentSku.currentPrice">SAR&nbsp;{{returnFloat(accDiv(currentSku.currentPrice, 100))}}</div>
       </div>
       <div class="tab-title">
-        <div class="t1">{{currentSku.colorName}}</div>
+        <div class="t1">{{currentColor}}</div>
         <div class="t2">:اللون</div>
       </div>
       <div class="sku-color">
@@ -112,10 +112,8 @@
 
     <!-- 详细信息 -->
     <div class="detail-info mb20" v-if="currentSku && currentSku.detail">
-      <div class="title mb30">تفاصيل المنتج</div>
-      <div v-for="item in currentSku.detail">
-        <img v-lazy="item" />
-      </div>
+      <!-- <div class="title mb30">تفاصيل المنتج</div> -->
+      <img v-for="item in currentSku.detail" v-lazy="item" />
     </div>
 
     <!-- 吸底操作栏 -->
@@ -141,6 +139,12 @@
         <img v-lazy="goodsImage" @click="hideBigImage(index)"/>
       </swiper-slide>
     </swiper> -->
+
+    <!-- 图片预加载 -->
+    <div style="display:none">
+      <img v-for="item in preImageList" :src="item" />
+    </div>
+
   </div>
 </template>
 
@@ -165,6 +169,7 @@ export default {
       data: {}, // 接口返回数据
       currentSku: {}, // 当前选中的sku信息
       imgList: [], // 录播图
+      preImageList: [], // 预加载图片列表
       colorActiveIndex: 0, // 颜色选择器
       currentColor: '', // 当前选择的颜色
       swiperImgIndex: 0, // 轮播计数器
@@ -243,6 +248,11 @@ export default {
           this.currentColor = data.skus[0].colorName
           // 获取轮播图数据
           this.imgList = this.currentSku.picturesUrls
+
+          // 预加载图片
+          for (let i = 0; i < data.skus.length; i++) {
+            this.preImageList = this.preImageList.concat(data.skus[i].picturesUrls)
+          }
         } else {
           this.$Toast(errorMessage)
         }
@@ -256,6 +266,7 @@ export default {
       this.colorActiveIndex = index
       let skusIndex = this.data.skus[index]
       this.currentColor = skusIndex.colorName
+      console.log()
       this.imgList = skusIndex.picturesUrls
       this.swiperImgIndex = 0
     },
@@ -267,12 +278,10 @@ export default {
 
     clickContact() {
       if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-        // window.location.href = 'https://wa.me/8615605810625'
         setTimeout(() => {
           window.location.href = 'https://itunes.apple.com/us/app/whatsapp-messenger/id310633997?mt=8'
         }, 2000)
       } else if (window.navigator.userAgent.match(/android/i)) {
-        // window.location.href = 'https://wa.me/8615605810625'
         setTimeout(() => {
           window.location.href = 'https://play.google.com/store/apps/details?id=com.whatsapp'
         }, 2000)
@@ -462,7 +471,7 @@ export default {
   // 详细信息
   .detail-info {
     background-color: #FFFFFF;
-    padding: 25/@rem 30/@rem;
+    // padding: 25/@rem 30/@rem;
     text-align: right;
     .title {
       height: 31@rem;
