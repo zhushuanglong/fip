@@ -260,7 +260,17 @@ export default {
       },
     }
   },
-  mounted() {},
+  mounted() {
+    try {
+      let rememberData = localStorage.getItem('friday_in_place_order') || ''
+      if (rememberData) {
+        let pdata = JSON.parse(rememberData)
+        this.currentState =  pdata.state
+        this.currentStateIndex = pdata.currentStateIndex
+        this.currentCityIndex = pdata.currentCityIndex
+      }  
+    } catch (error) {}
+  },
   watch: {
     modelState(newVal) {
       if (newVal === 'state') {
@@ -282,7 +292,7 @@ export default {
         this.currentCity = ''
         this.currentCityIndex = -1
 
-        this.$emit('onstate', state)
+        this.$emit('onstate', state, index)
         this.$emit('oncity', '')
       }
     },
@@ -292,7 +302,7 @@ export default {
       this.currentCityIndex = index
       // this.$emit('update:show', false)
       this.clickClose()
-      this.$emit('oncity', city)
+      this.$emit('oncity', city, index)
       this.$emit('modelState', '')
     },
     // 选择 - 顶部右侧的省 ，表单内重新选择省也是此操作

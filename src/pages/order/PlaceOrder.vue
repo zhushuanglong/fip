@@ -271,6 +271,8 @@ export default {
       // debounceGetConfirmOrder: false, // 接口请求拦截器
 
       modelState: '', // 点击进入
+      currentStateIndex: -1, // 当前选中的省
+      currentCityIndex: -1, // 当前选中的市
       
       // 提交参数
       params: {
@@ -377,6 +379,8 @@ export default {
         city: this.params.city,
         detailAddress: this.params.detailAddress,
         note: this.params.note || '',
+        currentStateIndex: this.currentStateIndex,
+        currentCityIndex: this.currentCityIndex,
       }
       
       // 校验是否填写完整
@@ -437,13 +441,15 @@ export default {
       this.modelState = '' // 重置弹层状态
     },
 
-    updateState(state) {
+    updateState(state, index) {
       this.params.state = state || ''
+      this.currentStateIndex = index
       this.checkState()
     },
 
-    updateCity(city) {
+    updateCity(city, index) {
       this.params.city = city || ''
+       this.currentCityIndex = index
       this.checkCity()
     },
 
