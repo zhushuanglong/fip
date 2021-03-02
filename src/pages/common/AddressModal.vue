@@ -40,9 +40,9 @@ export default {
       type: Function,
       default: () => {}
     },
-    isClickShowState: {
-      type: Boolean,
-      default: false // 显示省
+    modelState: {
+      type: String,
+      default: '' // 显示省 还是 市地址选择器
     },
   },
   data() {
@@ -262,8 +262,13 @@ export default {
   },
   mounted() {},
   watch: {
-    isClickShowState(newVal) {
-      this.isShowState = newVal
+    modelState(newVal) {
+      if (newVal === 'state') {
+        this.isShowState = true
+      }
+      if (newVal === 'city') {
+        this.isShowState = false
+      }
     }
   },
   methods: {
@@ -288,6 +293,7 @@ export default {
       // this.$emit('update:show', false)
       this.clickClose()
       this.$emit('oncity', city)
+      this.$emit('modelState', '')
     },
     // 选择 - 顶部右侧的省 ，表单内重新选择省也是此操作
     clickChooseState() {

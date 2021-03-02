@@ -275,6 +275,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  beforeRouteEnter(to, from, next) {
+    window.dataLayer.push({
+      event: 'Pageview',
+      pagePath: '/privacypolicy'
+    })
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
+  },
+}
+</script>
+
 <style lang="less" scoped>
 @import "~less/tool.less";
 .goods-main {

@@ -56,6 +56,18 @@ export default {
     this.getHomeData() //获取页面数据
   },
   methods: {
+    beforeRouteEnter(to, from, next) {
+      window.dataLayer.push({
+        event: 'Pageview',
+        pagePath: '/index'
+      })
+      document.body.scrollTop = document.documentElement.scrollTop = 0
+      next()
+    },
+    beforeRouteLeave(to, from , next) {
+      document.body.scrollTop = document.documentElement.scrollTop = 0
+      next()
+    },
     // 获取页面除推荐列表外的数据
     getHomeData() {
       this.goodsData = []

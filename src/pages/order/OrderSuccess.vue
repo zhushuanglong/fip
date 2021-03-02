@@ -59,6 +59,14 @@ export default {
       successData: {}
     }
   },
+  beforeRouteEnter(to, from, next) {
+    window.dataLayer.push({
+      event: 'Pageview',
+      pagePath: '/ordersuccess'
+    })
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
+  },
   computed: {},
   created () {
     this.orderSuccess()

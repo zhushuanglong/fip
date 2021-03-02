@@ -20,6 +20,14 @@ export default {
       copyContentHeight: '100vh'
     }
   },
+  beforeRouteEnter(to, from, next) {
+    window.dataLayer.push({
+      event: 'Pageview',
+      pagePath: '/contactus'
+    })
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
+  },
   mounted() {
     this.copyContentHeight = document.body.clientHeight - ((document.getElementsByClassName('copy-content')[0].offsetTop - document.getElementsByClassName('title')[0].offsetHeight) * 2 + document.querySelector('.global-top-bar .title').offsetHeight) + 'px'
   },

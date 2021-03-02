@@ -31,7 +31,7 @@
               <div class="amount-increase" :class="{'gray': params.quantity >= 20}" @click="clickIncrease">+</div>
             </div>
             <div class="size-btn" @click="clickSize">
-              <div class="size-info">{{confirmData.colorName}},حرر</div>
+              <div class="size-info">{{confirmData.colorName}},حر</div>
               <img src="../../images/icon_down.png" />
             </div>
           </div>
@@ -50,7 +50,10 @@
           <div class="tab">:إجمالي المنتج</div>
         </div>
         <div class="price-shipping">
-          <div class="content"><span v-if="shipping">SAR {{returnFloat(accDiv(shipping, 100))}}</span></div>
+          <div class="content">
+            <span v-if="shipping">SAR {{returnFloat(accDiv(shipping, 100))}}</span>
+            <span v-else>SAR 0</span>
+          </div>
           <div class="tab">:الشحن</div>
         </div>
         <!-- 商品总价加邮费邮件 -->
@@ -243,7 +246,7 @@
     <AddressModal 
       :show="isShowAddressModal" 
       :clickClose="clickAddressModalClose"
-      :isClickShowState="isClickShowState"
+      :modelState="modelState"
       @onstate="updateState" 
       @oncity="updateCity"></AddressModal>
   </div>
@@ -267,7 +270,7 @@ export default {
       timerIncrease: null, // 增加定时器
       // debounceGetConfirmOrder: false, // 接口请求拦截器
 
-      isClickShowState: false, // 点击进入
+      modelState: '', // 点击进入
       
       // 提交参数
       params: {
@@ -294,6 +297,14 @@ export default {
       }
     }
   },
+  beforeRouteEnter(to, from, next) {
+    window.dataLayer.push({
+      event: 'Pageview',
+      pagePath: '/placeorder'
+    })
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
+  },
   beforeRouteLeave(to, from , next) {
     document.body.scrollTop = document.documentElement.scrollTop = 0
     next()
@@ -307,6 +318,13 @@ export default {
       this.params.advertisingAgency = this.$route.query.source
     }
     this.getConfirmOrder()
+    // 获取本地缓存数据
+    try {
+      let rememberData = localStorage.getItem('friday_in_place_order') || ''
+      if (rememberData) {
+        this.params =  Object.assign({}, this.params, JSON.parse(rememberData))
+      }  
+    } catch (error) {}
   },
   mounted () {},
   methods: {
@@ -349,9 +367,18 @@ export default {
       })
     },
 
-    // 下单
+    // 下单请求
     placeOrder() {
-      // console.log(this.params)
+      let rememberData = {
+        customerName: this.params.customerName,
+        mobile: this.params.mobile,
+        email: this.params.email,
+        state: this.params.state,
+        city: this.params.city,
+        detailAddress: this.params.detailAddress,
+        note: this.params.note || '',
+      }
+      
       // 校验是否填写完整
       if (!this.handleValidateAll()) return
       
@@ -359,6 +386,8 @@ export default {
         const { code, data, errorMessage } = res
 
         if (code === 0 && data) {
+          // 记录本地操作数据
+          localStorage.setItem('friday_in_place_order', JSON.stringify(rememberData))
           this.$router.push({
             path: '/ordersuccess?id=' + data.orderId + '&source=' + (this.$route.query.source || '')
           })
@@ -399,12 +428,13 @@ export default {
     // 显示省、市 地址弹层
     clickAddressModal(state = '') {
       this.isShowAddressModal = true
-      this.isClickShowState = state === 'state' ? true : false
+      this.modelState = state  // state省 city市
     },
 
     // 关闭地址弹层
     clickAddressModalClose() {
       this.isShowAddressModal = false
+      this.modelState = '' // 重置弹层状态
     },
 
     updateState(state) {
@@ -642,14 +672,17 @@ export default {
         }
 
         .size-btn {
-          .wh(175, 48);
+          // .wh(175, 48);
+          height: 48/@rem;
           background: #F6F6F6;
           border-radius: 8/@rem;
           display: flex;
           margin-left: 180/@rem;
           cursor: pointer;
           .size-info {
-            .whl(127, 48);
+            padding-left: 20/@rem;
+            height: 48/@rem;
+            line-height: 48/@rem;
             color: #464646;
           }
           img {

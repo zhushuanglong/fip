@@ -11,7 +11,7 @@
           v-for="(goodsImage, index) in imgList"
           :key="goodsImage"
           >
-          <img v-lazy="goodsImage"/>
+          <img :data-index="index" v-lazy="goodsImage"/>
         </swiper-slide>
       </swiper>
       <div class="swiper-pagination" id="swiperPagination" style="display: none;"></div>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="tab-title">
-        <div class="t1">الحجم</div>
+        <div class="t1">حر</div>
         <div class="t2">:مجانا</div>
       </div>
       <div class="info-table">
@@ -128,20 +128,25 @@
     </div>
 
     <!-- 放大图层效果 -->
-    <!-- <swiper 
-      class="swiper"
-      :options="swiperOption2" 
-      >
-      <swiper-slide
-        v-for="(goodsImage, index) in imgList"
-        :key="goodsImage"
+    <div class="big-image-modal a-fadeinCt" v-show="isShowBigImageModal">
+      <swiper 
+        class="swiper"
+        ref="mySwiperTwo"
+        :options="swiperOptionTwo" 
         >
-        <img v-lazy="goodsImage" @click="hideBigImage(index)"/>
-      </swiper-slide>
-    </swiper> -->
+        <swiper-slide
+          v-for="(goodsImage, index) in imgList"
+          :key="goodsImage"
+          >
+          <img v-lazy="goodsImage"/>
+        </swiper-slide>
+      </swiper>
+      <div class="swiper-pagination-two" id="swiperPaginationTwo" style="display: none;"></div>
+      <div class="big-image-pagination">{{swiperImgIndex + 1}} / {{imgList.length}}</div>
+    </div>
 
     <!-- 图片预加载 -->
-    <div style="display:none">
+    <div style="display: none;">
       <img v-for="item in preImageList" :src="item" />
     </div>
 
@@ -153,12 +158,20 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 // import 'swiper/swiper.less'
 
-let vm = null // 局部变量挂载
+let that = null // 局部变量挂载
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
+  },
+  beforeRouteEnter(to, from, next) {
+    window.dataLayer.push({
+      event: 'Pageview',
+      pagePath: '/detail'
+    })
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+    next()
   },
   beforeRouteLeave(to, from , next) {
     document.body.scrollTop = document.documentElement.scrollTop = 0
@@ -169,11 +182,11 @@ export default {
       data: {}, // 接口返回数据
       currentSku: {}, // 当前选中的sku信息
       imgList: [], // 录播图
+      isShowBigImageModal: false, // 是否展示轮播大图
       preImageList: [], // 预加载图片列表
       colorActiveIndex: 0, // 颜色选择器
       currentColor: '', // 当前选择的颜色
       swiperImgIndex: 0, // 轮播计数器
-      swiperImgIndex2: 0, // 轮播计数器2
       swiperOption: {
         slidesPerView: 'auto', // 滚动显示数
         // lazy: {
@@ -184,54 +197,71 @@ export default {
           el: '.swiper-pagination', // 征用：用于捕获坐标
         },
         on: {
+          click(e) {
+            that.isShowBigImageModal = true
+            let index = e.target.getAttribute('data-index')
+            // window.ee = e.target.getAttribute('data-index')
+          },
           touchEnd () {
             setTimeout(() => {
               let pagination = document.getElementById('swiperPagination')
               let spanList = pagination.querySelectorAll('span')
               let spanActive= pagination.querySelectorAll('.swiper-pagination-bullet-active')[0]
               let len = spanList.length
-
+              
               for (let i = 0; i < len; i++) {
-                if (spanList[i] == spanActive) {
-                  vm.swiperImgIndex = i
+                if (spanList[i] === spanActive) {
+                  that.swiperImgIndex = i
                   break
                 }
               }
+              // 同步位置 - 轮播弹层 
+              that.swiperTwo.slideTo(that.swiperImgIndex, 0, false)
             }, 300)
           },
         },
       },
-      // swiperOption2: {
-      //   pagination: {
-      //     el: '.swiper-pagination',
-      //   },
-      //   on: {
-      //     touchEnd () {
-      //       setTimeout(() => {
-      //         let pagination = document.getElementById('swiperPagination2')
-      //         let spanList = pagination.querySelectorAll('span')
-      //         let spanActive= pagination.querySelectorAll('.swiper-pagination-bullet-active')[0]
-      //         let len = spanList.length
+      // 录播
+      swiperOptionTwo: {
+        pagination: {
+          el: '.swiper-pagination-two', // 征用：用于捕获坐标
+        },
+        on: {
+          click() {
+            that.isShowBigImageModal = false
+          },
+          touchEnd () {
+            setTimeout(() => {
+              let pagination = document.getElementById('swiperPaginationTwo')
+              let spanList = pagination.querySelectorAll('span')
+              let spanActive= pagination.querySelectorAll('.swiper-pagination-bullet-active')[0]
+              let len = spanList.length
 
-      //         for (let i = 0; i < len; i++) {
-      //           if (spanList[i] == spanActive) {
-      //             vm.swiperImgIndex2 = i
-      //             break
-      //           }
-      //         }
-      //       }, 300)
-      //     },
-      //   },
-      // }
+              for (let i = 0; i < len; i++) {
+                if (spanList[i] === spanActive) {
+                  that.swiperImgIndex = i
+                  break
+                }
+              }
+              // 同步位置 - 轮播
+              that.swiper.slideTo(that.swiperImgIndex, 0, false)
+            }, 300)
+          }
+        },
+       
+      }
     }
   },
   created () {
-    vm = this
+    that = this
     this.getDetailData()
   },
   computed: {
     swiper: function () {
       return this.$refs.mySwiper.swiperInstance
+    },
+    swiperTwo: function () {
+      return this.$refs.mySwiperTwo.swiperInstance
     },
   },
   mounted () {},
@@ -262,20 +292,15 @@ export default {
     // 点击sku color 选择器
     clickColor(index) {
       this.swiper.slideTo(0, 0, false)
+      this.swiperTwo.slideTo(0, 0, false)
 
       this.colorActiveIndex = index
       let skusIndex = this.data.skus[index]
       this.currentColor = skusIndex.colorName
-      console.log()
+
       this.imgList = skusIndex.picturesUrls
       this.swiperImgIndex = 0
     },
-
-    // 展示大图
-    clickShowBigImage(index) {
-      console.log(index)
-    },
-
     clickContact() {
       if (window.navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
         setTimeout(() => {
@@ -555,6 +580,38 @@ export default {
       color: #fff;
     }
   }
-  
+
+  // 大图弹层
+  .big-image-modal {
+    position: fixed;
+    z-index: 110;
+    top: 0;
+    width: 100%;
+    max-width: 750/@rem;
+    height: 100vh;
+    background-color: #000000;
+
+    .swiper-container {
+      height: 100%;
+    }
+    .swiper-slide {
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+    }
+    .big-image-pagination {
+      width: 100%;
+      max-width: 750/@rem;
+      font-size: 32/@rem;
+      color: #FFF;
+      position: absolute;
+      z-index: 2;
+      top: 100/@rem;
+      text-align: center;
+    }
+  }
 }
 </style>
